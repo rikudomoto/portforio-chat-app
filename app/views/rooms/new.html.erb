@@ -16,6 +16,17 @@
         <label class='chat-room-form__label' for='chat_room_チャットメンバー'>チャットメンバー</label>
       </div>
       <div class='chat-room-form__field--right'>
+        <select name = "room[user_ids][]">
+          <option>チャットするユーザーを選択してください</option>
+          <%# ログインしているユーザー以外の全てのレコードを取得 %>
+          <% User.where.not(id: current_user.id).each do |user| %>
+            <option value=<%= user.id%>><%= user.name %></option>
+          <% end %>
+          <%# ログインしているユーザー以外の全てのレコードを取得 %>
+        </select>
+        <%# ログイン中ユーザーidを含める %>
+        <input name = "room[user_ids][]" type = "hidden" value=<%current_user.id%>>
+        <%# ログイン中ユーザーidを含める %>
       </div>
     </div>
     <div class='chat-room-form__field'>
